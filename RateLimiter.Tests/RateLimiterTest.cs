@@ -143,6 +143,9 @@ public class RateLimiterTest
         Assert.IsFalse(secondRequest, "The second request denied as it doesn't meet the minimum interval.");
     }
 
+    /// <summary>
+    /// Tests the is request allowed region based fixed requests per timespan rule.
+    /// </summary>
     [Test]
     public void Test_IsRequestAllowed_RegionBasedFixedRequestsPerTimespanRule()
     {
@@ -153,7 +156,6 @@ public class RateLimiterTest
 
         _rateLimiter.AddRule(resource, regionBasedRule);
 
-        // Arrange
         _mockRegionBasedRequestStorage.Setup(r => r.GetClientRegionByAccessToken(It.IsAny<string>()))
             .Returns("US");
 
@@ -165,6 +167,9 @@ public class RateLimiterTest
         _mockRegionBasedRequestStorage.Verify(r => r.GetClientRegionByAccessToken(_regionBasedaccessToken), Times.Once);
     }
 
+    /// <summary>
+    /// Tests the request not allowed region based fixed requests per timespan rule.
+    /// </summary>
     [Test]
     public void Test_RequestNotAllowed_RegionBasedFixedRequestsPerTimespanRule()
     {
@@ -175,7 +180,6 @@ public class RateLimiterTest
 
         _rateLimiter.AddRule(resource, regionBasedRule);
 
-        // Arrange
         _mockRegionBasedRequestStorage.Setup(r => r.GetClientRegionByAccessToken(It.IsAny<string>()))
               .Returns("CA");
 
@@ -187,6 +191,9 @@ public class RateLimiterTest
         _mockRegionBasedRequestStorage.Verify(r => r.GetClientRegionByAccessToken(_regionBasedaccessToken), Times.Once);
     }
 
+    /// <summary>
+    /// Tests the is request allowed region based time span since last request rule.
+    /// </summary>
     [Test]
     public void Test_IsRequestAllowed_RegionBasedTimeSpanSinceLastRequestRule()
     {
@@ -197,7 +204,6 @@ public class RateLimiterTest
 
         _rateLimiter.AddRule(resource, regionBasedRule);
 
-        // Arrange
         _mockRegionBasedRequestStorage.Setup(r => r.GetClientRegionByAccessToken(It.IsAny<string>()))
             .Returns("US");
 
@@ -220,7 +226,6 @@ public class RateLimiterTest
 
         _rateLimiter.AddRule(resource, regionBasedRule);
 
-        // Arrange
         _mockRegionBasedRequestStorage.Setup(r => r.GetClientRegionByAccessToken(It.IsAny<string>()))
               .Returns("CA");
 
